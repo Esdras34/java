@@ -1,0 +1,288 @@
+package br.edu.fatecpg.atividade5java.view;
+import br.edu.fatecpg.atividade5java.model.Carro;
+import br.edu.fatecpg.atividade5java.model.Conta;
+import br.edu.fatecpg.atividade5java.model.Produto;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// 1
+		
+		Carro carro = new Carro("Renault", "Kwid", 2020, 60.0);
+        
+        System.out.println("Marca: " + carro.getMarca());
+        System.out.println("Modelo: " + carro.getModelo());
+        System.out.println("Ano: " + carro.getAno());
+        System.out.println("Capacidade do tanque: " + carro.getCapacidadeTanque() + " litros");
+        
+        double precoGasolina = 6.00;
+        System.out.println("O custo para encher o tanque é: R$ " + carro.calcularCustoParaEncherTanque(precoGasolina));
+		
+		// 2
+		
+		Conta conta = new Conta(1234, 56789, "Esdras REIS");
+        
+        System.out.println("Agência: " + conta.getAgencia());
+        System.out.println("Conta: " + conta.getConta());
+        System.out.println("Titular: " + conta.getNomeCliente());
+        System.out.println("Saldo inicial: R$ " + conta.getSaldo());
+        System.out.println("Cheque Especial disponível: R$ " + conta.getChequeEspecial());
+        
+        conta.depositar(1000);
+        conta.sacar(300);
+        
+		// 3
+		
+        Produto produto = new Produto("Notebook", 3000.00, 10);
+
+        System.out.println("Produto: " + produto.getNome());
+        System.out.println("Preço: R$" + produto.getPreco());
+        System.out.println("Quantidade em Estoque: " + produto.getQuantidadeEstoque());
+
+        produto.setPreco(-500.00);
+        produto.setQuantidadeEstoque(-5);
+
+        produto.setPreco(3500.00);
+        produto.setQuantidadeEstoque(15);
+
+        System.out.println("\nAtualizações:");
+        System.out.println("Preço: R$" + produto.getPreco());
+        System.out.println("Quantidade em Estoque: " + produto.getQuantidadeEstoque());
+	}
+
+}
+
+
+
+
+package br.edu.fatecpg.atividade5java.model;
+
+public class Carro {
+    private String marca;
+    private String modelo;
+    private int ano;
+    private int velocidade = 0;
+    private boolean ligado;
+    private double capacidadeTanque;
+
+    public Carro(String marca, String modelo, int ano, double capacidadeTanque) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.ano = ano;
+        this.capacidadeTanque = capacidadeTanque;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public int getVelocidade() {
+        return velocidade;
+    }
+
+    public boolean isLigado() {
+        return ligado;
+    }
+
+    public double getCapacidadeTanque() {
+        return capacidadeTanque;
+    }
+
+    public void setCapacidadeTanque(double capacidadeTanque) {
+        this.capacidadeTanque = capacidadeTanque;
+    }
+
+    public void ligar() {
+        System.out.println("\nCarro Ligando...");
+        System.out.println("\nCarro Ligado!");
+        this.ligado = true;
+    }
+
+    public void acelerar() {
+        if (ligado) {
+            System.out.println("\nCarro Acelerando...");
+            if (this.velocidade < 160) {
+                this.velocidade += 20;
+                System.out.println("Velocidade Atual: " + this.velocidade + "Km");
+            }
+            if (this.velocidade == 160) {
+                System.out.println("Velocidade Máxima Atingida!");
+            }
+        } else {
+            System.out.println("\nNão é possível acelerar um carro desligado!");
+        }
+    }
+
+    public void frear() {
+        if (ligado) {
+            if (velocidade == 0) {
+                System.out.println("\nO carro já está parado!");
+            } else {
+                System.out.println("\nCarro Freando...");
+                this.velocidade -= 30;
+
+                if (this.velocidade < 0) {
+                    this.velocidade = 0;
+                }
+                if (this.velocidade == 0) {
+                    System.out.println("Carro Parado!");
+                }
+                System.out.println("Velocidade Atual: " + this.velocidade + "Km");
+            }
+        } else {
+            System.out.println("\nNão é possível frear um carro desligado!");
+        }
+    }
+
+    public double calcularCustoParaEncherTanque(double precoGasolina) {
+        return getCapacidadeTanque() * precoGasolina;
+    }
+}
+
+
+
+package br.edu.fatecpg.atividade5java.model;
+
+public class Conta {
+	private int agencia;
+	private int conta;
+	private String nomeCliente;
+	private double saldo = 0;
+	private double chequeEspecial = 500;
+	
+	public Conta(int ag, int conta, String nome) {
+		this.agencia = ag;
+		this.conta = conta;
+		this.nomeCliente = nome;
+	}
+	
+	public void setAgencia(int ag) {
+		this.agencia = ag;
+	}
+	
+	public int getAgencia() {
+		return this.agencia;
+	}
+	
+	public void setConta(int conta) {
+		this.conta = conta;
+	}
+	
+	public int getConta() {
+		return this.conta;
+	}
+	
+	public void setNomeCliente(String nome) {
+		if(nome.length() < 2) {
+			this.nomeCliente = nome;
+		}
+		else {
+			System.out.println("Nome Invalido!");
+		}
+	}
+	
+	public String getNomeCliente() {
+		return this.nomeCliente;
+	}
+	
+	public void setSaldo(int saldo) {
+		this.saldo = saldo;
+	}
+	
+	public double getSaldo() {
+		return this.saldo;
+	}
+	
+	public void depositar(double valor) {
+		this.saldo += valor;
+	}
+	
+	public double getChequeEspecial() {
+        return this.chequeEspecial;
+    }
+
+    public double sacar(double valor) {
+        if (valor <= saldo) { 
+            saldo -= valor;
+        } else {
+            double restante = valor - saldo;
+            if (restante <= chequeEspecial) {
+                saldo = 0;
+                chequeEspecial -= restante;
+            } else {
+                System.out.println("Saque negado! Valor ultrapassa o limite do cheque especial.");
+                return saldo;
+            }
+        }
+        return saldo;
+	}
+}
+
+
+
+package br.edu.fatecpg.atividade5java.model;
+
+public class Produto {
+    private String nome;
+    private double preco;
+    private int quantidadeEstoque;
+
+    public Produto(String nome, double preco, int quantidadeEstoque) {
+        this.nome = nome;
+        setPreco(preco);
+        setQuantidadeEstoque(quantidadeEstoque);
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        if (preco >= 0) {
+            this.preco = preco;
+        } else {
+            System.out.println("Erro: O preço não pode ser negativo!");
+        }
+    }
+
+    public int getQuantidadeEstoque() {
+        return quantidadeEstoque;
+    }
+
+    public void setQuantidadeEstoque(int quantidadeEstoque) {
+        if (quantidadeEstoque >= 0) {
+            this.quantidadeEstoque = quantidadeEstoque;
+        } else {
+            System.out.println("Erro: A quantidade em estoque não pode ser negativa!");
+        }
+    }
+}
+
