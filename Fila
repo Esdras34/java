@@ -1,0 +1,50 @@
+class Fila { 
+    private int numeroDePacientes;
+
+    public Fila() {
+        numeroDePacientes = 0; 
+    }
+
+    
+    public void adicionarPaciente() {
+        numeroDePacientes++;
+        System.out.println("Um paciente entrou na fila. Total de pacientes: " + numeroDePacientes);
+    }
+
+    
+    public void chamarPacientes() {
+        if (numeroDePacientes == 0) {
+            System.out.println("Não há pacientes na fila para atendimento.");
+        } else {
+            System.out.println("Chamando pacientes para atendimento:");
+
+            
+            System.out.println("Paciente 1 foi atendido.");
+            numeroDePacientes--;
+
+           
+            if (numeroDePacientes >= 1) {
+                System.out.println("Paciente 2 foi atendido.");
+                numeroDePacientes--;
+            } else {
+                System.out.println("Só havia um paciente na fila.");
+            }
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Fila fila = new Fila();
+
+       
+        fila.adicionarPaciente();
+        fila.adicionarPaciente();
+        fila.adicionarPaciente();
+
+        
+        fila.chamarPacientes(); 
+        fila.chamarPacientes();
+        fila.chamarPacientes(); 
+    }
+}
